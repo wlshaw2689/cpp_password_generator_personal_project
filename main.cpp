@@ -1,50 +1,34 @@
 #include <iostream>
-#include <memory>
-#include <vector>
-class Test{
-private:
-    int data;
-public:
-    Test() : data{0} { std::cout << "\tTest constructor (" << data << ")" << std::endl;}
-    Test(int data) : data{data} {std::cout << "\tTest constructor (" << data << ")" << std::endl; }
-    int get_data() const {return data;}
-    ~Test() {std::cout << "\tTest destructor (" << data << ")" << std::endl; }
-};
 
-
-//Function Prototpes
-std::unique_ptr<std::vector<std::shared_ptr<Test>>>make();
-void fill(std::vector<std::shared_ptr<Test>> &vec, int num);
-void display(const std::vector<std::shared_ptr<Test>> &vec);
 int main(){
-    std::unique_ptr<std::vector<std::shared_ptr<Test>>> vec_ptr;
-    vec_ptr = make();
-    std::cout << "How many data points do you want to enter: ";
-    int num;
-    std::cin >> num;
-    fill(*vec_ptr, num);
-    display(*vec_ptr);
+    /*
+     * 
+     * Hello and welcome to the password generator.
+     * Alright so what do I want this password generator to do?
+     * U
+     * */
+     int choice;
+     std::cout << "Hello and welcome to the prototype build of the password generator\n";
+     std::cout << "As of right now, we have only two options.\n";
+     std::cout << "1: Create a new password\n" << 
+                            "2: Retrieve a password based on the name\n";
+    std::cout << "Please enter your choice: ";
+    std::cin >> choice;
+    /*
+     * 
+     * Going to test something first before I make my decision.
+     * Testing to see which would be better
+     * Looping through a string?
+     * Looping through an array of characters?
+     * Looping through a vector of characters?
+     * */
     
+    
+    switch(choice){
+        case 1:
+                //Create the new password;
+        case 2:
+                //Retrieve existing password;
+    }
     return 0;
 }
-
-std::unique_ptr<std::vector<std::shared_ptr<Test>>> make(){   ///could replace that identifier to auto
-    return std::make_unique<std::vector<std::shared_ptr<Test>>>();
-}
-
-void fill(std::vector<std::shared_ptr<Test>> &vec, int num){
-    int number;
-    for(int i = 0; i < num; i++)
-    {
-        std::cout << "Enter the number for block " << i + 1 << ": ";
-        std::cin >> number;
-        vec.push_back(std::make_shared<Test>(number));
-    }
-}
-
-void display(const std::vector<std::shared_ptr<Test>> &vec){
-    std::cout << "///////////////Objects in the vector/////////////////////" << std::endl;
-    for(const auto &objects : vec)
-        std::cout << "\t" << objects->get_data() << std::endl;
-}
-///////Stuff and things//////
