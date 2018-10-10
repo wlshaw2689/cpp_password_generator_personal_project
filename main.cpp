@@ -47,3 +47,4 @@ void display(const std::vector<std::shared_ptr<Test>> &vec){
     for(const auto &objects : vec)
         std::cout << "\t" << objects->get_data() << std::endl;
 }
+///////Stuff and things//////
