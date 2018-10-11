@@ -5,6 +5,7 @@
 
 //********Function Prototypes******//
 int print_menu();
+void create_password(const std::unique_ptr<Password> &password);
 
 int main(){
     /*
@@ -40,6 +41,10 @@ int main(){
                 std::unique_ptr<Password> password = std::make_unique<Password>(name_of_password, length_of_password);
                 std::cout << password->GetNameOfPassword() << std::endl;
                 std::cout << "Length of pasword: " << password->GetActualPassword().length() << std::endl;
+                std::cout << "***************************************" << std::endl;
+                create_password(password);
+                std::cout << "Out of the function" << std::endl;
+        
                 break;
         }
         case 2:
@@ -49,7 +54,7 @@ int main(){
     return 0;
 }
 
-
+///Menu function: Displays the menu of the program. Reads input from user and returns an int///
 int print_menu(){
     int choice;
     std::cout << "Hello and welcome to the prototype build of the password generator\n";
@@ -60,4 +65,9 @@ int print_menu(){
     std::cin >> choice;
     return choice;
     
+}
+
+void create_password(const std::unique_ptr<Password> &password){
+    std::cout << "Password name: " << password->GetNameOfPassword() << std::endl;
+    std::cout << "Password length: " << password->GetActualPassword().length() << std::endl;
 }
