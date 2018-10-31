@@ -1,12 +1,14 @@
 #include "Password.h"
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 
 //********Function Prototypes******//
 int print_menu();
-void create_password(Password* password, int *length); // Reference them since
+void create_password(Password* password, int length); // Reference them since
 void make_choices(Password* password);
+void write_to_file(Password* password);
 
 int main()
 {
@@ -22,10 +24,11 @@ int main()
         std::cin.ignore();
         std::getline(std::cin, name_of_password);
         Password* password = new Password{name_of_password};
-        create_password(password, &length_of_password);
+        create_password(password, length_of_password);
         std::cout << "The name of the password is: " << password->GetNameOfPassword() << std::endl;
         std::cout << "The actual password is: " << password->GetActualPassword() << std::endl;
         std::cout << "Length of password is: " << password->GetActualPassword().length() << std::endl;
+        password->write_to_file();
         delete password;
 
         break;
@@ -52,25 +55,42 @@ int print_menu()
     return choice;
 }
 
-void create_password(Password* password, int* length)
+void create_password(Password* password, int length)
 {
     std::cout << "For your password, you can choose the following:\n"
               << "numbers, symbols, and letters(both upper and lower case) " << std::endl;
-    std::cout << "Press 1 to add numbers, 2 to add symbols,\n"
-              << "3 for lower case, 4 for upper case, or 5 to include all choices in your password. " << std::endl;
+    std::cout << "Press 1 to add numbers\n" 
+                   << "2 to add symbols\n"
+                   << "3 for lower case\n" 
+                   << "4 for upper case\n" 
+                   << "5 to include all choices in your password. " << std::endl;
     std::cout << "When you are done, type 0 for done." << std::endl;
+    system("CLS");
     make_choices(password);
     std::vector<int> functions;
-    if(password->IsIncludeNumbers())
+    int count = 0;
+    if(password->IsIncludeNumbers()){
         functions.push_back(0);
-    if(password->IsIncludeSymbols())
+        password->generate_number();
+        count++;
+    }
+    if(password->IsIncludeSymbols()){
         functions.push_back(1);
-    if(password->IsLowerCase())
+        password->generate_symbol();
+        count++;
+    }
+    if(password->IsLowerCase()){
         functions.push_back(2);
-    if(password->IsUpperCase())
+        password->generate_lowcase_letter();
+        count++;
+    }
+    if(password->IsUpperCase()){
         functions.push_back(3);
+        password->generate_uppcase_letter();
+        count++;
+    }
 
-    for(int i = 0; i < *length; i++) {
+    for(int i = 0; i < length - count; i++) {
         int random_num = rand() % functions.size();
         
         switch(functions.at(random_num)) {
@@ -88,6 +108,7 @@ void create_password(Password* password, int* length)
             break;
         }
     }
+    password->shuffle_elements();
 }
 
 void make_choices(Password* password)
@@ -132,3 +153,4 @@ void make_choices(Password* password)
     } while(!done);
     system("CLS");
 }
+
