@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
+#include <algorithm>
 class Password
 {
     
@@ -67,19 +69,15 @@ public:
     }
 
     void enableAll();
+    void shuffle_elements();
     
     void generate_lowcase_letter();
     void generate_uppcase_letter();
     void generate_number();
     void generate_symbol();
+    void write_to_file();
     bool check_if_everything_is_false();
     ~Password();
 };
 
 #endif // _Password_
-       /*
-        *
-        *
-        * Why type of functions will I need?
-        * How many la
-        */
