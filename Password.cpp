@@ -42,7 +42,26 @@ bool Password::check_if_everything_is_false(){
    return  ((!lower_case && !upper_case && !include_numbers && !include_symbols ) ? true : false);
 }
 
+void Password::write_to_file(){
+    std::ofstream document{"../passwords.txt", std::ios::app};
+    
+       if(!document) {
+        std::cerr << "Error creating the file" << std::endl;
+        return;
+    }
 
+    if(!document) {
+        std::cerr << "Error opening the document file" << std::endl;
+        return;
+    }
+    
+    document << this->name_of_password << "\t" << this->actual_password << "\n";
+    document.close();
+}
+
+void Password::shuffle_elements(){      ///This shuffles the elements around
+    std::random_shuffle(this->actual_password.begin(), this->actual_password.end());
+}
 Password::~Password()
 {
 
